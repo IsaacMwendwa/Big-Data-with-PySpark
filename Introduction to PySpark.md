@@ -19,4 +19,29 @@ When you start modifying and combining columns and rows of data, there are many 
 
 To start working with Spark DataFrames, you first have to create a SparkSession object from your SparkContext. You can think of the SparkContext as your connection to the cluster and the SparkSession as your interface with that connection.
 
-Remember, for the rest of this course you'll have a SparkSession called spark available in your workspace!
+![image](https://github.com/IsaacMwendwa/Big-Data-with-PySpark/assets/51324520/6d40484b-bb15-4320-b815-7ca0a0409bbe)
+
+* To list the names of all tables in your cluster as a list: `print(spark.catalog.listTables())`
+* One of the advantages of the DataFrame interface is that you can run SQL queries on the tables in your Spark cluster
+* ![image](https://github.com/IsaacMwendwa/Big-Data-with-PySpark/assets/51324520/f8b7d96a-23da-42ef-a274-4d822b6c37bc)
+
+* To Pandafy a Spark DataFrame
+* ![image](https://github.com/IsaacMwendwa/Big-Data-with-PySpark/assets/51324520/5000b365-e992-4580-9b00-ea7a6741a8c6)
+
+### Adding Data From Spark DataFrame to Spark Cluster
+The .createDataFrame() method takes a pandas DataFrame and returns a Spark DataFrame.
+
+The output of this method is stored locally, not in the SparkSession catalog. This means that you can use all the Spark DataFrame methods on it, but you can't access the data in other contexts. For example, a SQL query (using the .sql() method) that references your DataFrame will throw an error. To access the data in this way, you have to save it as a temporary table.
+
+You can do this using the .createTempView() Spark DataFrame method, which takes as its only argument the name of the temporary table you'd like to register. This method registers the DataFrame as a table in the catalog, but as this table is temporary, it can only be accessed from the specific SparkSession used to create the Spark DataFrame.
+
+There is also the method .createOrReplaceTempView(). This safely creates a new temporary table if nothing was there before, or updates an existing table if one was already defined. You'll use this method to avoid running into problems with duplicate tables.
+
+Check out the diagram to see all the different ways your Spark data structures interact with each other.
+![image](https://github.com/IsaacMwendwa/Big-Data-with-PySpark/assets/51324520/8bc551e5-8fac-495e-8b1b-2f7666718eca)
+
+* Sample code:
+  * ![image](https://github.com/IsaacMwendwa/Big-Data-with-PySpark/assets/51324520/2b5be9d1-d09c-49b8-87ba-c410d287463e)
+
+### Reading CSV files in Spark
+![image](https://github.com/IsaacMwendwa/Big-Data-with-PySpark/assets/51324520/331242c6-f471-429f-9005-57ab59816efc)
