@@ -102,6 +102,18 @@ This creates a GroupedData object (so you can use the .min() method), then finds
 ![image](https://github.com/IsaacMwendwa/Big-Data-with-PySpark/assets/51324520/ebcac449-2d78-4498-902d-401d5d54fe42)
 
 #### 4. Grouping and Aggregating Data
+Part of what makes aggregating so powerful is the addition of groups. PySpark has a whole class devoted to grouped data frames: pyspark.sql.GroupedData, which you saw in the last two exercises. You've learned how to create a grouped DataFrame by calling the .groupBy() method on a DataFrame with no arguments.
+
+Now you'll see that when you pass the name of one or more columns in your DataFrame to the .groupBy() method, the aggregation methods behave like when you use a GROUP BY statement in a SQL query!
+
+![image](https://github.com/IsaacMwendwa/Big-Data-with-PySpark/assets/51324520/bb674c0a-8684-4d90-add1-56610c1323f9)
+
+In addition to the GroupedData methods you've already seen, there is also the .agg() method. This method lets you pass an aggregate column expression that uses any of the aggregate functions from the pyspark.sql.functions submodule.
+
+This submodule contains many useful functions for computing things like standard deviations. All the aggregation functions in this submodule take the name of a column in a GroupedData table.
+
+![image](https://github.com/IsaacMwendwa/Big-Data-with-PySpark/assets/51324520/90610e02-b886-487e-a4dd-76d7adaabb4b)
+
 
 
 
