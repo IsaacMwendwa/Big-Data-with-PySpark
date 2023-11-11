@@ -114,6 +114,11 @@ This submodule contains many useful functions for computing things like standard
 
 ![image](https://github.com/IsaacMwendwa/Big-Data-with-PySpark/assets/51324520/90610e02-b886-487e-a4dd-76d7adaabb4b)
 
+#### 5. Joining Data in PySpark
+In PySpark, joins are performed using the DataFrame method .join(). This method takes three arguments. The first is the second DataFrame that you want to join with the first one. The second argument, on, is the name of the key column(s) as a string. The names of the key column(s) must be the same in each table. The third argument, how, specifies the kind of join to perform. In this course we'll always use the value how="leftouter"
+
+![image](https://github.com/IsaacMwendwa/Big-Data-with-PySpark/assets/51324520/78108599-ae46-4104-a2ae-b43b1228ab5f)
+
 
 
 
