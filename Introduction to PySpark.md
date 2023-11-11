@@ -83,12 +83,25 @@ The difference between .select() and .withColumn() methods is that .select() ret
 
 Similar to SQL, you can also use the .select() method to perform column-wise operations. When you're selecting a column using the df.colName notation, you can perform any column operation and the .select() method will return the transformed column. 
 
-![image](https://github.com/IsaacMwendwa/Big-Data-with-PySpark/assets/51324520/0ccab493-312b-48cc-a55c-b8603024a5f7)
-
-
 For example, `flights.select(flights.air_time/60)` returns a column of flight durations in hours instead of minutes. You can also use the .alias() method to rename a column you're selecting. So if you wanted to .select() the column duration_hrs (which isn't in your DataFrame) you could do: \
 `flights.select((flights.air_time/60).alias("duration_hrs"))`
 
 The equivalent Spark DataFrame method .selectExpr() takes SQL expressions as a string: \
 `flights.selectExpr("air_time/60 as duration_hrs")`
 with the SQL as keyword being equivalent to the .alias() method. To select multiple columns, you can pass multiple strings.
+
+![image](https://github.com/IsaacMwendwa/Big-Data-with-PySpark/assets/51324520/0ccab493-312b-48cc-a55c-b8603024a5f7)
+
+#### 3. Aggregating Data (groupBy() method --> SQL's GROUP BY)
+All of the common aggregation methods, like .min(), .max(), and .count() are GroupedData methods. These are created by calling the .groupBy() DataFrame method. For example, to find the minimum value of a column, col, in a DataFrame, df, you could do \
+`df.groupBy().min("col").show()` \
+This creates a GroupedData object (so you can use the .min() method), then finds the minimum value in col, and returns it as a DataFrame.
+
+![image](https://github.com/IsaacMwendwa/Big-Data-with-PySpark/assets/51324520/433f41f2-4086-4c60-abe7-e79edce0912f)
+
+![image](https://github.com/IsaacMwendwa/Big-Data-with-PySpark/assets/51324520/ebcac449-2d78-4498-902d-401d5d54fe42)
+
+#### 4. Grouping and Aggregating Data
+
+
+
