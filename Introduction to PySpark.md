@@ -54,10 +54,14 @@ In this chapter, you'll learn how to use the methods defined by Spark's DataFram
 
 In Spark you can do this using the .withColumn() method, which takes two arguments. First, a string with the name of your new column, and second the new column itself. The new column must be an object of class Column. Creating one of these is as easy as extracting a column from your DataFrame using df.colName.
 
-Updating a Spark DataFrame is somewhat different than working in pandas because the Spark DataFrame is immutable. This means that it can't be changed, and so columns can't be updated in place. Thus, all these methods return a new DataFrame. To overwrite the original DataFrame you must reassign the returned DataFrame using the method like so:
+Updating a Spark DataFrame is somewhat different than working in Pandas because the Spark DataFrame is immutable. This means that it can't be changed, and so columns can't be updated in place. Thus, all these methods return a new DataFrame. To overwrite the original DataFrame you must reassign the returned DataFrame using the method like so:
 
 `df = df.withColumn("newCol", df.oldCol + 1)`
 
 The above code creates a DataFrame with the same columns as df plus a new column, newCol, where every entry is equal to the corresponding entry from oldCol, plus one. To overwrite an existing column, just pass the name of the column as the first argument!
 
 ![image](https://github.com/IsaacMwendwa/Big-Data-with-PySpark/assets/51324520/019fb9c1-aec2-4bec-8fe9-0a60308bf8e3)
+
+### PySpark.sql Module
+* The PySpark.sql module, which provides optimized data queries to your Spark session; hasSQL-analogous operations which can be performed in Spark DataFrames:
+#### 1. Filtering Data (filter() method, analogous to SQL's WHERE clause)
