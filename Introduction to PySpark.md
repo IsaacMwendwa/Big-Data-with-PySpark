@@ -63,5 +63,32 @@ The above code creates a DataFrame with the same columns as df plus a new column
 ![image](https://github.com/IsaacMwendwa/Big-Data-with-PySpark/assets/51324520/019fb9c1-aec2-4bec-8fe9-0a60308bf8e3)
 
 ### PySpark.sql Module
-* The PySpark.sql module, which provides optimized data queries to your Spark session; hasSQL-analogous operations which can be performed in Spark DataFrames:
-#### 1. Filtering Data (filter() method, analogous to SQL's WHERE clause)
+* The PySpark.sql module, which provides optimized data queries to your Spark session; has SQL-analogous operations which can be performed in Spark DataFrames:
+#### 1. Filtering Data (filter() method --> SQL's WHERE)
+* The .filter() method takes either an expression that would follow the WHERE clause of a SQL expression as a string, or a Spark Column of boolean (True/False) values.
+* For example, the following two expressions will produce the same output:
+`flights.filter("air_time > 120").show()` \
+`flights.filter(flights.air_time > 120).show()`
+
+Notice that in the first case, we pass a string to .filter(). In SQL, we would write this filtering task as SELECT * FROM flights WHERE air_time > 120. Spark's .filter() can accept any expression that could go in the WHERE clause of a SQL query (in this case, "air_time > 120"), as long as it is passed as a string. Notice that in this case, we do not reference the name of the table in the string -- as we wouldn't in the SQL request.
+
+In the second case, we actually pass a column of boolean values to .filter(). Remember that flights.air_time > 120 returns a column of boolean values that has True in place of those records in flights.air_time that are over 120, and False otherwise
+
+#### 2. Selecting Data (select() & withColumn() methods --> SQL's SELECT)
+The .select() method takes multiple arguments - one for each column you want to select. These arguments can either be the column name as a string (one for each column) or a column object (using the df.colName syntax). When you pass a column object, you can perform operations like addition or subtraction on the column to change the data contained in it, much like inside .withColumn().
+
+The difference between .select() and .withColumn() methods is that .select() returns only the columns you specify, while .withColumn() returns all the columns of the DataFrame in addition to the one you defined. It's often a good idea to drop columns you don't need at the beginning of an operation so that you're not dragging around extra data as you're wrangling. In this case, you would use .select() and not .withColumn().
+
+![image](https://github.com/IsaacMwendwa/Big-Data-with-PySpark/assets/51324520/b0f7b7ce-941d-48bc-91ab-337246e17406)
+
+Similar to SQL, you can also use the .select() method to perform column-wise operations. When you're selecting a column using the df.colName notation, you can perform any column operation and the .select() method will return the transformed column. 
+
+![image](https://github.com/IsaacMwendwa/Big-Data-with-PySpark/assets/51324520/0ccab493-312b-48cc-a55c-b8603024a5f7)
+
+
+For example, `flights.select(flights.air_time/60)` returns a column of flight durations in hours instead of minutes. You can also use the .alias() method to rename a column you're selecting. So if you wanted to .select() the column duration_hrs (which isn't in your DataFrame) you could do: \
+`flights.select((flights.air_time/60).alias("duration_hrs"))`
+
+The equivalent Spark DataFrame method .selectExpr() takes SQL expressions as a string: \
+`flights.selectExpr("air_time/60 as duration_hrs")`
+with the SQL as keyword being equivalent to the .alias() method. To select multiple columns, you can pass multiple strings.
